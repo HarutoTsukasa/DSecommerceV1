@@ -1,0 +1,39 @@
+:root {
+    --brand: #6d28d9;
+    --brand-hover: #5b21b6;
+    --brand-soft: #ede9fe;
+}
+
+[data-bs-theme="dark"] {
+    --brand-soft: #2e1065;
+}
+
+.text-primary-brand { color: var(--brand) !important; }
+
+.btn-brand {
+    background-color: var(--brand);
+    border-color: var(--brand);
+    color: #fff;
+}
+.btn-brand:hover { background-color: var(--brand-hover); border-color: var(--brand-hover); color: #fff; }
+
+.hero {
+    background: linear-gradient(135deg, var(--brand), #9333ea);
+}
+
+.sidebar {
+    width: 240px;
+    min-height: 100vh;
+    background-color: #1f1235;
+}
+.sidebar .nav-link.active { background-color: var(--brand); border-radius: .5rem; }
+
+.badge-pendiente  { background-color: #f59e0b; }
+.badge-enviado    { background-color: #3b82f6; }
+.badge-entregado  { background-color: #10b981; }
+.badge-cancelado  { background-color: #ef4444; }
+
+@media (max-width: 768px) {
+    .sidebar { width: 100%; min-height: auto; }
+    .d-flex { flex-direction: column !important; }
+}
