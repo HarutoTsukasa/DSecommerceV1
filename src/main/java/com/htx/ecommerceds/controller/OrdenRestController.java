@@ -13,16 +13,20 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class OrdenRestController {
 
-    private final OrdenService ordenService;
+	private final OrdenService ordenService;
 
-    @GetMapping
-    public List<Orden> listar() { return ordenService.listarTodas(); }
+	@GetMapping
+	public List<Orden> listar() {
+		return ordenService.listarTodas();
+	}
 
-    @PatchMapping("/{id}/estado")
-    public Orden actualizarEstado(@PathVariable Long id, @RequestBody Map<String, String> body) {
-        return ordenService.actualizarEstado(id, body.get("estado"));
-    }
+	@PatchMapping("/{id}/estado")
+	public Orden actualizarEstado(@PathVariable Long id, @RequestBody Map<String, String> body) {
+		return ordenService.actualizarEstado(id, body.get("estado"));
+	}
 
-    @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable Long id) { ordenService.eliminar(id); }
+	@DeleteMapping("/{id}")
+	public void eliminar(@PathVariable Long id) {
+		ordenService.eliminar(id);
+	}
 }

@@ -11,26 +11,26 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductoServiceImpl implements ProductoService {
 
-    private final ProductoRepository productoRepository;
+	private final ProductoRepository productoRepository;
 
-    @Override
-    public List<Producto> listarTodos() {
-        return productoRepository.findAll();
-    }
+	@Override
+	public List<Producto> listarTodos() {
+		return productoRepository.findAll();
+	}
 
-    @Override
-    public Producto obtener(Long id) {
-        return productoRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado: " + id));
-    }
+	@Override
+	public Producto obtener(Long id) {
+		return productoRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Producto no encontrado: " + id));
+	}
 
-    @Override
-    public Producto guardar(Producto producto) {
-        return productoRepository.save(producto);
-    }
+	@Override
+	public Producto guardar(Producto producto) {
+		return productoRepository.save(producto);
+	}
 
-    @Override
-    public void eliminar(Long id) {
-        productoRepository.deleteById(id);
-    }
+	@Override
+	public void eliminar(Long id) {
+		productoRepository.deleteById(id);
+	}
 }

@@ -16,47 +16,46 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrdenServiceImpl implements OrdenService {
 
-    private final OrdenRepository ordenRepository;
+	private final OrdenRepository ordenRepository;
 
-    @Override
-    public List<Orden> listarTodas() {
-        return ordenRepository.findAll();
-    }
+	@Override
+	public List<Orden> listarTodas() {
+		return ordenRepository.findAll();
+	}
 
-    @Override
-    public Orden obtener(Long id) {
-        return ordenRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Orden no encontrada: " + id));
-    }
+	@Override
+	public Orden obtener(Long id) {
+		return ordenRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Orden no encontrada: " + id));
+	}
 
-    /** @Transactional no es opcional aquí: hay varios inserts en cascada. */
-    @Override
-    @Transactional
-    public Orden crear(Orden orden) {
-        orden.setFecha(LocalDateTime.now());
-        if (orden.getEstado() == null) {
-            orden.setEstado("PENDIENTE");
-        }
-        BigDecimal total = BigDecimal.ZERO;
-        for (DetalleOrden d : orden.getDetalles()) {
-            d.setOrden(orden);
-            total = total.add(d.getPrecioUnitario()
-                    .multiply(BigDecimal.valueOf(d.getCantidad())));
-        }
-        orden.setTotal(total);
-        return ordenRepository.save(orden);
-    }
+	/** @Transactional no es opcional aquí: hay varios inserts en cascada. */
+	@Override
+	@Transactional
+	public Orden crear(Orden orden) {
+		orden.setFecha(LocalDateTime.now());
+		if (orden.getEstado() == null) {
+			orden.setEstado("PENDIENTE");
+		}
+		BigDecimal total = BigDecimal.ZERO;
+		for (DetalleOrden d : orden.getDetalles()) {
+			d.setOrden(orden);
+			total = total.add(d.getPrecioUnitario().multiply(BigDecimal.valueOf(d.getCantidad())));
+		}
+		orden.setTotal(total);
+		return ordenRepository.save(orden);
+	}
 
-    @Override
-    @Transactional
-    public Orden actualizarEstado(Long id, String nuevoEstado) {
-        Orden o = obtener(id);
-        o.setEstado(nuevoEstado);
-        return ordenRepository.save(o);
-    }
+	@Override
+	@Transactional
+	public Orden actualizarEstado(Long id, String nuevoEstado) {
+		Orden o = obtener(id);
+		o.setEstado(nuevoEstado);
+		return ordenRepository.save(o);
+	}
 
-    @Override
-    public void eliminar(Long id) {
-        ordenRepository.deleteById(id);
-    }
+	@Override
+	public void eliminar(Long id) {
+		ordenRepository.deleteById(id);
+	}
 }

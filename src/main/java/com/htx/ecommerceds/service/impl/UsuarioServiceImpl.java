@@ -13,30 +13,28 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService {
 
-    private final UsuarioRepository usuarioRepository;
+	private final UsuarioRepository usuarioRepository;
 
-    @Override
-    public List<Usuario> listarTodos() {
-        return usuarioRepository.findAll();
-    }
+	@Override
+	public List<Usuario> listarTodos() {
+		return usuarioRepository.findAll();
+	}
 
-    @Override
-    public Optional<Usuario> buscarPorEmail(String email) {
-        return usuarioRepository.findByEmail(email);
-    }
+	@Override
+	public Optional<Usuario> buscarPorEmail(String email) {
+		return usuarioRepository.findByEmail(email);
+	}
 
-    @Override
-    public boolean loginValido(String email, String password) {
-        if (email == null || password == null) {
-            return false;
-        }
-        return usuarioRepository.findByEmail(email)
-                .map(u -> u.getPassword().equals(password))
-                .orElse(false);
-    }
+	@Override
+	public boolean loginValido(String email, String password) {
+		if (email == null || password == null) {
+			return false;
+		}
+		return usuarioRepository.findByEmail(email).map(u -> u.getPassword().equals(password)).orElse(false);
+	}
 
-    @Override
-    public Usuario guardar(Usuario usuario) {
-        return usuarioRepository.save(usuario);
-    }
+	@Override
+	public Usuario guardar(Usuario usuario) {
+		return usuarioRepository.save(usuario);
+	}
 }
